@@ -10,15 +10,29 @@ const connection = mysql.createConnection({
 });
 
 router.get("/", function (request, response) {
-  connection.connect();
+  try{
+    connection.connect();
+  }catch(error){
+    console.log("Start connection error: ",error);
+  }
 
-  connection.query("select * from schedule", (err, rows, fields) => {
-    if (err) throw err;
+  try{
+    connection.query("select * from schedule where scheduledate = '2022-03-03'", async (err, rows, fields) => {
+      console.log("the result is: ", rows);
+      response =  rows;
+    });
+  }catch(error){
+    console.log("Query error: ", error);
+  }
 
-    console.log("the result is: ", rows[0].solution);
-  });
-  connection.end();
-  return console.log("terminado");
+  try{
+    connection.end();
+    console.log("terminado");
+  }catch(error){
+    console.log("End connection: ", error);
+  }
+
+  console.log(response);
 });
 
 module.exports = router;
