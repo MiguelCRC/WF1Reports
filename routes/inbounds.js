@@ -2,9 +2,10 @@ var express = require("express");
 var router = express.Router();
 const inbounds = require('../services/inbounds');
 
-router.get("/", function (request, response) {
+router.get("/", async function (request, response) {
   try{
-    response.json(await inbounds.getInboundByDate(request.query.date));
+    var answer = await inbounds.getInboundByDate(request.query.date);
+    response.json({inbounds: answer.data[0]});
   }catch(error){
     console.error("Query error: ", error.message);
   }

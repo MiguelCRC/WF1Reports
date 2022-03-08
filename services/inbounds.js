@@ -1,6 +1,5 @@
 const db = require('./db');
 const helper = require('../helper');
-const config = require('../config');
 
 async function getInboundByDate(date){
     const rows = await db.query(`select * from schedule where scheduledate = ${date}`);
@@ -9,4 +8,4 @@ async function getInboundByDate(date){
     return {data}
 }
 
-module.exports = inbounds
+module.exports = {getInboundByDate}
