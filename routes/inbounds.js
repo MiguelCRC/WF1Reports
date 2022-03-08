@@ -5,7 +5,7 @@ const inbounds = require('../services/inbounds');
 router.get("/", async function (request, response) {
   try{
     var answer = await inbounds.getInboundByDate(request.query.date);
-    response.json({inbounds: answer.data[0]});
+    response.json({inbounds: answer.data});
   }catch(error){
     console.error("Query error: ", error.message);
   }
