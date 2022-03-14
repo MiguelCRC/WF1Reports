@@ -29,6 +29,7 @@ async function getInboundByDate(initDate, finalDate) {
     var arrive;
     var depart;
     var schedule;
+    var date;
     var scheduleWindowLate;
     var scheduleWindowEarly;
     var differenceTimeLate;
@@ -38,6 +39,7 @@ async function getInboundByDate(initDate, finalDate) {
 
     data.forEach((inbound) => {
         depart = moment(inbound.departedts).format("LTS");
+        date = moment(inbound.scheduledate).format("YYYY-MM-DD");
 
         if (inbound.currentstate == "COMPLETE") {
             if (inbound.arrivedts) {
@@ -101,6 +103,7 @@ async function getInboundByDate(initDate, finalDate) {
 
             structuredInbound = {
                 id: inbound.id,
+                date: date,
                 customer: inbound.customer,
                 facilityName: inbound.facilityName || null,
                 bol: inbound.bol,
@@ -117,6 +120,7 @@ async function getInboundByDate(initDate, finalDate) {
         } else if (inbound.currentstate == "SCHEDULED") {
             structurePendingInbounds = {
                 id: inbound.id,
+                date: inbound.scheduledate,
                 customer: inbound.customer,
                 facilityName: inbound.facilityName,
                 bol: inbound.bol,
