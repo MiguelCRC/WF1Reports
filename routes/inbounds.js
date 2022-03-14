@@ -14,10 +14,11 @@ router.get("/", async function (request, response) {
         message: error.message
       });
     }
-  }else if(request.query.initialDate && request.query.finalDate){
-    return response.status(200).json({
-      finalDate: request.query.finalDate
-    });
+  }else if(request.query.initDate && request.query.finalDate){
+    const answerRange = await inbounds.getInboundByDate(request.query.initDate, request.query.finalDate);
+      return response.status(200).json(
+        answerRange
+        );
   }else{
     return response.status(500).json({
       message: "No Date input!"
