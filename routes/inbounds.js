@@ -3,11 +3,25 @@ var router = express.Router();
 const inbounds = require('../services/inbounds');
 
 router.get("/", async function (request, response) {
-  try{
-    var answer = await inbounds.getInboundByDate(request.query.date);
-    response.json({inbounds: answer.data});
-  }catch(error){
-    console.error("Query error: ", error.message);
+  if(request.query.date){
+    try{
+      const answer = await inbounds.getInboundByDate(request.query.date);
+      return response.status(200).json(
+        answer
+        );
+    }catch(error){
+      return response.status(500).json({
+        message: error.message
+      });
+    }
+  }else if(request.query.initialDate && request.query.finalDate){
+    return response.status(200).json({
+      finalDate: request.query.finalDate
+    });
+  }else{
+    return response.status(500).json({
+      message: "No Date input!"
+    })
   }
 });
 
