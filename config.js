@@ -1,8 +1,8 @@
 const config = {
   db: {
-    host: "127.0.0.1",
-    user: "root",
-    password: "1qaz2wsx",
+    host: "tc.crc.global",
+    user: "maae",
+    password: "APykdhWtp%@F2xrT",
     database: "dockschedule",
   },
   listPerPage: 10,
